@@ -1,4 +1,7 @@
 from room import Room
+from player import Player
+from os import system
+
 
 # Declare all the rooms
 
@@ -20,7 +23,6 @@ to north. The smell of gold permeates the air."""),
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
-
 
 # Link rooms together
 
@@ -49,3 +51,21 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+start_game = input("To play the game, type y for yes or type n for no ")
+if start_game == "y":
+    user_name = input("Type a name for yourself: ")
+    player = Player(user_name, room["outside"])
+    while True:
+        print(f"{player.name} you are at {player.location.name} and {player.location.description}\n")
+        user = input(f"{player.name} where would you like to go? [w] north [s] south [a] west [d] east [q] quit: ")
+        if user in ["w", "s", "a", "d"]:
+            player.move(user)
+        elif user == "q":
+            print("Ending Simulation")
+            break
+        else:
+            print("Please try another input.")
+
+    else:
+        print("Maybe next time")
